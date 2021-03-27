@@ -1,45 +1,25 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using EventStore.Persistence;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 
 namespace EventStore
 {
-    public interface IEventStore
-    {
-        IEventStreams Connect();
-    }
-
-    public interface IEventStreams
-    {
-        IEventStream this[string streamName] { get; }
-
-        //IEnumerable<IEventStream> StreamsByCategory(string category);
-    }
-
     public class EventStore : IEventStore
     {
-        public IEventStreams Connect()
-        {
-            throw new NotImplementedException();
-        }
-    }
+        private readonly IEventStreams streams;
+        private readonly ILogger<EventStore> logger;
 
-    public class EventStreams : IEventStreams
-    {
-        private readonly IServiceProvider provider;
-
-        public EventStreams(IServiceProvider provider)
+        internal EventStore(IServiceProvider provider, ILogger<EventStore> logger)
         {
-            this.provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            if(provider == null) throw new ArgumentNullException(nameof(provider));
+
+            this.streams = new EventStreams(provider, provider.GetService<ILogger<EventStreams>>());
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public IEventStream this[string streamName] => GetEventStream(streamName);
-        
-        private IEventStream GetEventStream(string streamName)
+        public IEventStreams Streams
         {
-            return new EventStream(streamName, provider.GetService<IStreamStore>(), provider.GetService<ILogger<EventStream>>());
+            get => streams;
         }
     }
 }

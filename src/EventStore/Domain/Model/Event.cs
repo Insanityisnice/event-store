@@ -2,7 +2,7 @@ using System;
 
 namespace EventStore.Domain.Model
 {
-    public class Event
+    public class Event : ISequenceItem
     {
         public Guid Id { get; private set; }
         public String Type { get; private set; }
