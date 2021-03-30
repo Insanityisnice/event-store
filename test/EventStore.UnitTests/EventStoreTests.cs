@@ -51,7 +51,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("Streams")]
-        public void EventStore_Streams()
+        public void EventStore_Streams_Successfull_Creation()
         {
             var target = new EventStore(provider, logger);
             
@@ -60,7 +60,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("Streams")]
-        public void EventStore_Streams_EnsureSingleton()
+        public void EventStore_Streams_Successfull_Creation__Ensure_Singleton()
         {
             var target = new EventStore(provider, logger);
             

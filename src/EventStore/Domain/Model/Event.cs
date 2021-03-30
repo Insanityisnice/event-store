@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json.Linq;
 
 namespace EventStore.Domain.Model
 {
@@ -6,17 +7,20 @@ namespace EventStore.Domain.Model
     {
         public Guid Id { get; private set; }
         public String Type { get; private set; }
-        public String Data { get; private set; }
+        public String User { get; private set; }
         public Int64 SequenceNumber { get; private set; }
         public DateTimeOffset Timestamp { get; private set; }
+        public JObject Data { get; private set; }
+        
 
-        public Event(Guid id, string type, string data, long sequenceNumber, DateTimeOffset timestamp)
+        public Event(Guid id, string type, string user, long sequenceNumber, DateTimeOffset timestamp, JObject data)
         {
             Id = id;
             Type = type;
-            Data = data;
+            User = user;
             SequenceNumber = sequenceNumber;
             Timestamp = timestamp;
+            Data = data;
         }
     }
 }

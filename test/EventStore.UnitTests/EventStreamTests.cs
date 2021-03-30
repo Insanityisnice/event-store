@@ -1,8 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ApprovalTests;
+using EventStore.Domain.Model;
 using EventStore.Persistence;
+using EventStore.UnitTests.Data;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using NSubstitute;
 
 namespace EventStore.UnitTests
@@ -72,6 +79,132 @@ namespace EventStore.UnitTests
         {
             string streamName = "Aggregate-1";
             var target = new EventStream(streamName, streamStore, logger);
+        }
+
+        [TestMethod, TestCategory("Add")]
+        public void EventStream_Add__Null_Events()
+        {
+            string streamName = "Aggregate-1";
+            var target = new EventStream(streamName, streamStore, logger);
+
+            Func<Task> act = async () => await target.Add(null); //Enumerable.Empty<Event>().ToArray()
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [TestMethod, TestCategory("Add")]
+        public async Task EventStream_Add__Single_Event()
+        {
+            string streamName = "Aggregate-1";
+            var target = new EventStream(streamName, streamStore, logger);
+
+            await target.Add(Streams.Aggregate_1.First());
+            
+            await streamStore.Received().AddEventsToStream(streamName, Arg.Is<IEnumerable<Event>>(a => a.First() == Streams.Aggregate_1.First()));
+        }
+
+        [TestMethod, TestCategory("Add")]
+        public async Task EventStream_Add__Multiple_Events()
+        {
+            string streamName = "Aggregate-1";
+            var target = new EventStream(streamName, streamStore, logger);
+
+            await target.Add(Streams.Aggregate_1.Skip(1).Take(2).ToArray());
+            
+            await streamStore.Received().AddEventsToStream(streamName, Arg.Is<IEnumerable<Event>>(a => a.Except(Streams.Aggregate_1.Skip(1).Take(2)).Count() == 0));
+        }
+
+        [TestMethod, TestCategory("ToObject")]
+        public async Task EventStream_ToObject_EmptySet()
+        {
+            string streamName = "Aggregate-1";
+            int numOfEvents = 0;
+            var target = new EventStream(streamName, streamStore, logger);
+
+            streamStore.ReadStream(streamName).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
+            var result = await target.ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
+
+            result.ReceivedCalls().Count().Should().Be(numOfEvents);
+        }
+
+        [TestMethod, TestCategory("ToObject")]
+        public async Task EventStream_ToObject_SingleEvent()
+        {
+            string streamName = "Aggregate-1";
+            int numOfEvents = 1;
+            var target = new EventStream(streamName, streamStore, logger);
+
+            streamStore.ReadStream(streamName).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
+            var result = await target.ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
+
+            result.ReceivedCalls().Count().Should().Be(numOfEvents);
+
+            Approvals.Verify(JObject.FromObject(result).ToString());
+        }
+
+        [TestMethod, TestCategory("ToObject")]
+        public async Task EventStream_ToObject_AllEvents()
+        {
+            string streamName = "Aggregate-1";
+            int numOfEvents = 4;
+            var target = new EventStream(streamName, streamStore, logger);
+
+            streamStore.ReadStream(streamName).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
+            var result = await target.ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
+
+            result.ReceivedCalls().Count().Should().Be(numOfEvents);
+
+            Approvals.Verify(JObject.FromObject(result).ToString());
+        }
+
+        [TestMethod, TestCategory("ToObject")]
+        public async Task EventStream_ToObject_Before()
+        {
+            string streamName = "Aggregate-1";
+            int numOfEvents = 2;
+            DateTimeOffset from = default(DateTimeOffset);
+            DateTimeOffset to = new DateTimeOffset(new DateTime(2021, 1, 2, 23, 59, 59, DateTimeKind.Utc));
+            var target = new EventStream(streamName, streamStore, logger);
+
+            streamStore.ReadStream(streamName, from, to).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
+            var result = await target.Before(to).ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
+
+            result.ReceivedCalls().Count().Should().Be(numOfEvents);
+
+            Approvals.Verify(JObject.FromObject(result).ToString());
+        }
+
+        [TestMethod, TestCategory("ToObject")]
+        public async Task EventStream_ToObject_After()
+        {
+            string streamName = "Aggregate-1";
+            int numOfEvents = 2;
+            DateTimeOffset from = new DateTimeOffset(new DateTime(2021, 1, 2, 23, 59, 59, DateTimeKind.Utc));
+            DateTimeOffset to = default(DateTimeOffset);
+            var target = new EventStream(streamName, streamStore, logger);
+
+            streamStore.ReadStream(streamName, from, to).Returns(Streams.Aggregate_1.Skip(2).Take(numOfEvents).ToAsyncEnumerable());
+            var result = await target.After(from).ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
+
+            result.ReceivedCalls().Count().Should().Be(numOfEvents);
+
+            Approvals.Verify(JObject.FromObject(result).ToString());
+        }
+
+        [TestMethod, TestCategory("ToObject")]
+        public async Task EventStream_ToObject_Between()
+        {
+            string streamName = "Aggregate-1";
+            int numOfEvents = 2;
+            DateTimeOffset from = new DateTimeOffset(new DateTime(2021, 1, 2, 0, 0, 0, DateTimeKind.Utc));
+            DateTimeOffset to = new DateTimeOffset(new DateTime(2021, 1, 3, 0, 0, 0, DateTimeKind.Utc));
+            var target = new EventStream(streamName, streamStore, logger);
+
+            streamStore.ReadStream(streamName, from, to).Returns(Streams.Aggregate_1.Skip(1).Take(numOfEvents).ToAsyncEnumerable());
+            var result = await target.Between(from, to).ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
+
+            result.ReceivedCalls().Count().Should().Be(numOfEvents);
+
+            Approvals.Verify(JObject.FromObject(result).ToString());
         }
     }
 }

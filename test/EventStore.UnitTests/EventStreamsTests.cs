@@ -55,7 +55,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("Stream")]
-        public void EventStreams_Stream()
+        public void EventStreams_Stream_Successfull_Creation()
         {
             var streams = new EventStreams(provider, logger);
 
@@ -64,7 +64,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("Stream")]
-        public void EventStreams_Stream_EnsureUnique()
+        public void EventStreams_Stream_Successfull_Creation__Ensure_Unique_Stream()
         {
             var streams = new EventStreams(provider, logger);
 

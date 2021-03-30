@@ -1,0 +1,13 @@
+﻿{
+  "Id": 1,
+  "Name": "New Aggregate",
+  "Description": "Some Description",
+  "Users": [
+    "000000001",
+    "000000002"
+  ],
+  "CreatedBy": "100000003",
+  "CreatedDate": "2021-01-01T00:00:00+00:00",
+  "ClosedBy": "100000003",
+  "ClosedDate": "2021-01-04T00:00:00+00:00"
+}

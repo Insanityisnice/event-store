@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,13 +10,10 @@ using Microsoft.Extensions.Logging;
 
 namespace EventStore
 {
-    internal class EventStream : IEventStream
+    internal class EventStream : Sequence<Event>, IEventStream
     {
         private readonly ILogger<EventStream> logger;
         private readonly IStreamStore store;
-
-        private DateTimeOffset after = default(DateTimeOffset);
-        private DateTimeOffset before = default(DateTimeOffset);
 
         public string StreamName { get; private set; }
         public string Category { get; private set; }
@@ -32,52 +29,33 @@ namespace EventStore
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public IAsyncEnumerator<Event> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+        override public IAsyncEnumerator<Event> GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
-            return store.ReadStream(StreamName).GetAsyncEnumerator(cancellationToken);
+            return store.ReadStream(StreamName, after, before).GetAsyncEnumerator(cancellationToken);
         }
 
         public async Task Add(params Event[] events)
         {
+            using var scope = logger.MethodScope(nameof(EventStream), nameof(EventStream.Add));
+
+            if (events is null) { logger.AttemptToAddNullEvents(StreamName); throw new ArgumentNullException(nameof(events)); }
+            if (events.Length == 0) { logger.AttemptToAddEmptyEvents(StreamName); throw new ArgumentException("There must be at least one event to add to the stream.", nameof(events)); }
+
             await store.AddEventsToStream(StreamName, events);
             logger.AddedEvents(StreamName, events.Length);
         }
 
-        public IEventStream After(DateTimeOffset after)
-        {
-            this.after = after;
-            return this;
-        }
-
-        public IEventStream Before(DateTimeOffset before)
-        {
-            this.before = before;
-            return this;
-        }
-
-        public IEventStream Between(DateTimeOffset after, DateTimeOffset before)
-        {
-            After(after);
-            Before(this.before = before);
-            return this;
-        }
-
-        public async Task<T> ToObject<T>(T seed, Func<Event, T, T> merge)
+        override public async Task<T> ToObject<T>(T seed, Func<Event, T, T> merge)
         {
             using var scope = logger.MethodScope(nameof(EventStream), nameof(ToObject));
 
             T obj = seed;
-            await foreach(Event @event in store.ReadStream(StreamName, after, before))
+            await foreach(Event @event in this)
             {
                 obj = merge(@event, obj);
             }
 
             return obj;
-        }
-
-        public Task<T> ToObject<T>(Func<Event, T, T> merge)
-        {
-            return ToObject<T>(default(T), merge);
         }
     }
 }
