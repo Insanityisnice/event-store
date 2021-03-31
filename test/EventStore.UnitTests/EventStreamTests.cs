@@ -114,7 +114,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("ToObject")]
-        public async Task EventStream_ToObject_EmptySet()
+        public async Task EventStream_ToObject__Empty_Set_of_Events()
         {
             string streamName = "Aggregate-1";
             int numOfEvents = 0;
@@ -127,7 +127,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("ToObject")]
-        public async Task EventStream_ToObject_SingleEvent()
+        public async Task EventStream_ToObject__Only_one_event()
         {
             string streamName = "Aggregate-1";
             int numOfEvents = 1;
@@ -142,7 +142,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("ToObject")]
-        public async Task EventStream_ToObject_AllEvents()
+        public async Task EventStream_ToObject__All_events()
         {
             string streamName = "Aggregate-1";
             int numOfEvents = 4;
@@ -157,7 +157,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("ToObject")]
-        public async Task EventStream_ToObject_Before()
+        public async Task EventStream_ToObject__Before_specified_date()
         {
             string streamName = "Aggregate-1";
             int numOfEvents = 2;
@@ -174,7 +174,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("ToObject")]
-        public async Task EventStream_ToObject_After()
+        public async Task EventStream_ToObject__After_specified_date()
         {
             string streamName = "Aggregate-1";
             int numOfEvents = 2;
@@ -191,7 +191,7 @@ namespace EventStore.UnitTests
         }
 
         [TestMethod, TestCategory("ToObject")]
-        public async Task EventStream_ToObject_Between()
+        public async Task EventStream_ToObject__Between_dates_inclusive()
         {
             string streamName = "Aggregate-1";
             int numOfEvents = 2;
