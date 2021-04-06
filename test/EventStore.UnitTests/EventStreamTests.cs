@@ -81,34 +81,34 @@ namespace EventStore.UnitTests
             var target = new EventStream(streamName, streamStore, logger);
         }
 
-        [TestMethod, TestCategory("Add")]
-        public void EventStream_Add__Null_Events()
+        [TestMethod, TestCategory("Publish")]
+        public void EventStream_Publish__Null_Events()
         {
             string streamName = "Aggregate-1";
             var target = new EventStream(streamName, streamStore, logger);
 
-            Func<Task> act = async () => await target.Add(null); //Enumerable.Empty<Event>().ToArray()
+            Func<Task> act = async () => await target.Publish(null); //Enumerable.Empty<Event>().ToArray()
             act.Should().Throw<ArgumentNullException>();
         }
 
-        [TestMethod, TestCategory("Add")]
-        public async Task EventStream_Add__Single_Event()
+        [TestMethod, TestCategory("Publish")]
+        public async Task EventStream_Publish__Single_Event()
         {
             string streamName = "Aggregate-1";
             var target = new EventStream(streamName, streamStore, logger);
 
-            await target.Add(Streams.Aggregate_1.First());
+            await target.Publish(Streams.Aggregate_1.First());
             
             await streamStore.Received().AddEventsToStream(streamName, Arg.Is<IEnumerable<Event>>(a => a.First() == Streams.Aggregate_1.First()));
         }
 
-        [TestMethod, TestCategory("Add")]
-        public async Task EventStream_Add__Multiple_Events()
+        [TestMethod, TestCategory("Publish")]
+        public async Task EventStream_Publish__Multiple_Events()
         {
             string streamName = "Aggregate-1";
             var target = new EventStream(streamName, streamStore, logger);
 
-            await target.Add(Streams.Aggregate_1.Skip(1).Take(2).ToArray());
+            await target.Publish(Streams.Aggregate_1.Skip(1).Take(2).ToArray());
             
             await streamStore.Received().AddEventsToStream(streamName, Arg.Is<IEnumerable<Event>>(a => a.Except(Streams.Aggregate_1.Skip(1).Take(2)).Count() == 0));
         }

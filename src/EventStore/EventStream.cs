@@ -23,7 +23,7 @@ namespace EventStore
             if (string.IsNullOrWhiteSpace(streamName)) throw new ArgumentException($"'{nameof(streamName)}' cannot be null or whitespace.", nameof(streamName));
 
             this.StreamName = streamName;
-            this.Category = streamName.Split('-').First();
+            this.Category = streamName.Split('-').First(); //TODO:JS:S: Make the category seperator configurable.
 
             this.store = store ?? throw new ArgumentNullException(nameof(store));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -34,9 +34,9 @@ namespace EventStore
             return store.ReadStream(StreamName, after, before).GetAsyncEnumerator(cancellationToken);
         }
 
-        public async Task Add(params Event[] events)
+        public async Task Publish(params Event[] events)
         {
-            using var scope = logger.MethodScope(nameof(EventStream), nameof(EventStream.Add));
+            using var scope = logger.MethodScope(nameof(EventStream), nameof(EventStream.Publish));
 
             if (events is null) { logger.AttemptToAddNullEvents(StreamName); throw new ArgumentNullException(nameof(events)); }
             if (events.Length == 0) { logger.AttemptToAddEmptyEvents(StreamName); throw new ArgumentException("There must be at least one event to add to the stream.", nameof(events)); }

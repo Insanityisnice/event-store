@@ -10,6 +10,6 @@ namespace EventStore
         string StreamName { get; }
         string Category { get; }
 
-        Task Add(params Event[] events);
+        Task Publish(params Event[] events);
     }
 }
