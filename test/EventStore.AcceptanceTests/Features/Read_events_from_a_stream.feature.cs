@@ -95,6 +95,15 @@ namespace EventStore.AcceptanceTests.Features
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 5
+#line hidden
+#line 6
+    testRunner.Given("Aggregate-1 contains Published.Existing.Aggregate-1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events when stream does not exist")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
@@ -107,7 +116,7 @@ namespace EventStore.AcceptanceTests.Features
                     "missing_stream"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Read events when stream does not exist", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 6
+#line 9
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -127,11 +136,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
-    testRunner.Given("\'aggregate-1\' does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 5
+this.FeatureBackground();
 #line hidden
-#line 8
-    testRunner.Then("\'aggregate-1\' contains no events", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 10
+    testRunner.Given("Aggregate-99 does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 11
+    testRunner.Then("Aggregate-99 contains no events", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -151,7 +163,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("stream", stream);
             argumentsOfScenario.Add("events", events);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Read all events", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 11
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -171,10 +183,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 12
-    testRunner.Given(string.Format("{0} does exist", stream), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 5
+this.FeatureBackground();
 #line hidden
-#line 13
+#line 15
     testRunner.Then(string.Format("{0} contains {1}", stream, events), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -189,12 +201,12 @@ this.ScenarioInitialize(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("all_events")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "SingleEvent")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "SingleEvent")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.SingleEvent")]
         public virtual void ReadAllEvents_SingleEvent()
         {
-#line 11
-this.ReadAllEvents("SingleEvent", "aggregate-1", "Published.Existing.SingleEvent", ((string[])(null)));
+#line 14
+this.ReadAllEvents("SingleEvent", "Aggregate-1", "Published.Existing.SingleEvent", ((string[])(null)));
 #line hidden
         }
         
@@ -206,12 +218,12 @@ this.ReadAllEvents("SingleEvent", "aggregate-1", "Published.Existing.SingleEvent
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("all_events")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "TwoEvents")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "TwoEvents")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.TwoEvents")]
         public virtual void ReadAllEvents_TwoEvents()
         {
-#line 11
-this.ReadAllEvents("TwoEvents", "aggregate-1", "Published.Existing.TwoEvents", ((string[])(null)));
+#line 14
+this.ReadAllEvents("TwoEvents", "Aggregate-1", "Published.Existing.TwoEvents", ((string[])(null)));
 #line hidden
         }
         
@@ -223,12 +235,12 @@ this.ReadAllEvents("TwoEvents", "aggregate-1", "Published.Existing.TwoEvents", (
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("all_events")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "ManyEvents")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "ManyEvents")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.ManyEvents")]
         public virtual void ReadAllEvents_ManyEvents()
         {
-#line 11
-this.ReadAllEvents("ManyEvents", "aggregate-1", "Published.Existing.ManyEvents", ((string[])(null)));
+#line 14
+this.ReadAllEvents("ManyEvents", "Aggregate-1", "Published.Existing.ManyEvents", ((string[])(null)));
 #line hidden
         }
         
@@ -247,7 +259,7 @@ this.ReadAllEvents("ManyEvents", "aggregate-1", "Published.Existing.ManyEvents",
             argumentsOfScenario.Add("after", after);
             argumentsOfScenario.Add("events", events);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Read events after", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 22
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -267,10 +279,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 23
-    testRunner.Given(string.Format("{0} does exist", stream), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 5
+this.FeatureBackground();
 #line hidden
-#line 24
+#line 25
     testRunner.Then(string.Format("{0} {1} contains {2}", stream, after, events), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -278,56 +290,74 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events after: 2000_01_01_1400_GMT")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events after: Begining_Of_A_Year")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_after_date")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2000_01_01_1400_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "2000_01_01_1400_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Begining_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "Begining_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:after", "2000-01-01T00:00:00+00:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.After_1400_GMT")]
-        public virtual void ReadEventsAfter_2000_01_01_1400_GMT()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.After_Begining_Of_A_Year")]
+        public virtual void ReadEventsAfter_Begining_Of_A_Year()
         {
-#line 22
-this.ReadEventsAfter("2000_01_01_1400_GMT", "aggregate-1", "2000-01-01T00:00:00+00:00:00", "Published.Existing.After_1400_GMT", ((string[])(null)));
+#line 24
+this.ReadEventsAfter("Begining_Of_A_Year", "Aggregate-1", "2000-01-01T00:00:00+00:00:00", "Published.Existing.After_Begining_Of_A_Year", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events after: 2000_01_01_Midnight_GMT")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events after: End_Of_A_Year")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_after_date")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2000_01_01_Midnight_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "2000_01_01_Midnight_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:after", "2000-01-01T00:00:00+00:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.After_Midnight_GMT")]
-        public virtual void ReadEventsAfter_2000_01_01_Midnight_GMT()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "End_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "End_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:after", "1999-12-31T11:59:59+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.After_End_Of_A_Year")]
+        public virtual void ReadEventsAfter_End_Of_A_Year()
         {
-#line 22
-this.ReadEventsAfter("2000_01_01_Midnight_GMT", "aggregate-1", "2000-01-01T00:00:00+00:00:00", "Published.Existing.After_Midnight_GMT", ((string[])(null)));
+#line 24
+this.ReadEventsAfter("End_Of_A_Year", "Aggregate-1", "1999-12-31T11:59:59+00:00:00", "Published.Existing.After_End_Of_A_Year", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events after: 2000_01_01_Midnight_EST")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events after: Begining_Of_A_Month")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_after_date")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2000_01_01_Midnight_EST")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "2000_01_01_Midnight_EST")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:after", "2000-01-01T00:00:00-04:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.After_Midnight_EST")]
-        public virtual void ReadEventsAfter_2000_01_01_Midnight_EST()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Begining_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "Begining_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:after", "2000-03-01T00:00:00+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.After_Begining_Of_A_Month")]
+        public virtual void ReadEventsAfter_Begining_Of_A_Month()
         {
-#line 22
-this.ReadEventsAfter("2000_01_01_Midnight_EST", "aggregate-1", "2000-01-01T00:00:00-04:00:00", "Published.Existing.After_Midnight_EST", ((string[])(null)));
+#line 24
+this.ReadEventsAfter("Begining_Of_A_Month", "Aggregate-1", "2000-03-01T00:00:00+00:00:00", "Published.Existing.After_Begining_Of_A_Month", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events after: End_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_after_date")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "End_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "End_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:after", "2000-03-31T11:59:59+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.After_End_Of_A_Month")]
+        public virtual void ReadEventsAfter_End_Of_A_Month()
+        {
+#line 24
+this.ReadEventsAfter("End_Of_A_Month", "Aggregate-1", "2000-03-31T11:59:59+00:00:00", "Published.Existing.After_End_Of_A_Month", ((string[])(null)));
 #line hidden
         }
         
@@ -346,7 +376,7 @@ this.ReadEventsAfter("2000_01_01_Midnight_EST", "aggregate-1", "2000-01-01T00:00
             argumentsOfScenario.Add("before", before);
             argumentsOfScenario.Add("events", events);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Read events before", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 33
+#line 35
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -366,10 +396,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 34
-    testRunner.Given(string.Format("{0} does exist", stream), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 5
+this.FeatureBackground();
 #line hidden
-#line 35
+#line 36
     testRunner.Then(string.Format("{0} {1} contains {2}", stream, before, events), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -377,56 +407,74 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events before: 2000_01_01_1400_GMT")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events before: Begining_Of_A_Year")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_before_date")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2000_01_01_1400_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "2000_01_01_1400_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Begining_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "Begining_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:before", "2000-01-01T00:00:00+00:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_1400_GMT")]
-        public virtual void ReadEventsBefore_2000_01_01_1400_GMT()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_Begining_Of_A_Year")]
+        public virtual void ReadEventsBefore_Begining_Of_A_Year()
         {
-#line 33
-this.ReadEventsBefore("2000_01_01_1400_GMT", "aggregate-1", "2000-01-01T00:00:00+00:00:00", "Published.Existing.Before_1400_GMT", ((string[])(null)));
+#line 35
+this.ReadEventsBefore("Begining_Of_A_Year", "Aggregate-1", "2000-01-01T00:00:00+00:00:00", "Published.Existing.Before_Begining_Of_A_Year", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events before: 2000_01_01_Midnight_GMT")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events before: End_Of_A_Year")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_before_date")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2000_01_01_Midnight_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "2000_01_01_Midnight_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:before", "2000-01-01T00:00:00+00:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_Midnight_GMT")]
-        public virtual void ReadEventsBefore_2000_01_01_Midnight_GMT()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "End_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "End_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:before", "1999-12-31T11:59:59+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_End_Of_A_Year")]
+        public virtual void ReadEventsBefore_End_Of_A_Year()
         {
-#line 33
-this.ReadEventsBefore("2000_01_01_Midnight_GMT", "aggregate-1", "2000-01-01T00:00:00+00:00:00", "Published.Existing.Before_Midnight_GMT", ((string[])(null)));
+#line 35
+this.ReadEventsBefore("End_Of_A_Year", "Aggregate-1", "1999-12-31T11:59:59+00:00:00", "Published.Existing.Before_End_Of_A_Year", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events before: 2000_01_01_Midnight_EST")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events before: Begining_Of_A_Month")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_before_date")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2000_01_01_Midnight_EST")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "2000_01_01_Midnight_EST")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:before", "2000-01-01T00:00:00-04:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_Midnight_EST")]
-        public virtual void ReadEventsBefore_2000_01_01_Midnight_EST()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Begining_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "Begining_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:before", "2000-03-01T00:00:00+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_Begining_Of_A_Month")]
+        public virtual void ReadEventsBefore_Begining_Of_A_Month()
         {
-#line 33
-this.ReadEventsBefore("2000_01_01_Midnight_EST", "aggregate-1", "2000-01-01T00:00:00-04:00:00", "Published.Existing.Before_Midnight_EST", ((string[])(null)));
+#line 35
+this.ReadEventsBefore("Begining_Of_A_Month", "Aggregate-1", "2000-03-01T00:00:00+00:00:00", "Published.Existing.Before_Begining_Of_A_Month", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events before: End_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_before_date")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "End_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "End_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:before", "2000-03-31T11:59:59+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_End_Of_A_Month")]
+        public virtual void ReadEventsBefore_End_Of_A_Month()
+        {
+#line 35
+this.ReadEventsBefore("End_Of_A_Month", "Aggregate-1", "2000-03-31T11:59:59+00:00:00", "Published.Existing.Before_End_Of_A_Month", ((string[])(null)));
 #line hidden
         }
         
@@ -446,7 +494,7 @@ this.ReadEventsBefore("2000_01_01_Midnight_EST", "aggregate-1", "2000-01-01T00:0
             argumentsOfScenario.Add("end", end);
             argumentsOfScenario.Add("events", events);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Read events betweem", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 44
+#line 46
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -466,10 +514,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 45
-    testRunner.Given(string.Format("{0} does exist", stream), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 5
+this.FeatureBackground();
 #line hidden
-#line 46
+#line 47
     testRunner.Then(string.Format("{0} between {1} {2} contains {3}", stream, start, end, events), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -477,59 +525,59 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events betweem: 2000_01_01_1400__2000_02_01_1400_GMT")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events betweem: Beginning_And_End_Of_A_Year")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_between_dates")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2000_01_01_1400__2000_02_01_1400_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "2000_01_01_1400__2000_02_01_1400_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Beginning_And_End_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "Beginning_And_End_Of_A_Year")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:start", "2000-01-01T00:00:00+00:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:end", "2000-01-01T00:00:00+00:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_1400_GMT")]
-        public virtual void ReadEventsBetweem_2000_01_01_1400__2000_02_01_1400_GMT()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:end", "2000-12-31T11:59:59+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Between_Beginning_And_End_Of_A_Year")]
+        public virtual void ReadEventsBetweem_Beginning_And_End_Of_A_Year()
         {
-#line 44
-this.ReadEventsBetweem("2000_01_01_1400__2000_02_01_1400_GMT", "aggregate-1", "2000-01-01T00:00:00+00:00:00", "2000-01-01T00:00:00+00:00:00", "Published.Existing.Before_1400_GMT", ((string[])(null)));
+#line 46
+this.ReadEventsBetweem("Beginning_And_End_Of_A_Year", "Aggregate-1", "2000-01-01T00:00:00+00:00:00", "2000-12-31T11:59:59+00:00:00", "Published.Existing.Between_Beginning_And_End_Of_A_Year", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events betweem: 2000_01_01_Midnight__2000_01_01_Midnight_GMT")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events betweem: Beginning_And_End_Of_A_Month")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_between_dates")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2000_01_01_Midnight__2000_01_01_Midnight_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "2000_01_01_Midnight__2000_01_01_Midnight_GMT")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:start", "2000-01-01T00:00:00+00:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:end", "2000-01-01T00:00:00+00:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_Midnight_GMT")]
-        public virtual void ReadEventsBetweem_2000_01_01_Midnight__2000_01_01_Midnight_GMT()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Beginning_And_End_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "Beginning_And_End_Of_A_Month")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:start", "2000-03-01T00:00:00+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:end", "2000-03-31T11:59:59+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Between_Beginning_And_End_Of_A_Month")]
+        public virtual void ReadEventsBetweem_Beginning_And_End_Of_A_Month()
         {
-#line 44
-this.ReadEventsBetweem("2000_01_01_Midnight__2000_01_01_Midnight_GMT", "aggregate-1", "2000-01-01T00:00:00+00:00:00", "2000-01-01T00:00:00+00:00:00", "Published.Existing.Before_Midnight_GMT", ((string[])(null)));
+#line 46
+this.ReadEventsBetweem("Beginning_And_End_Of_A_Month", "Aggregate-1", "2000-03-01T00:00:00+00:00:00", "2000-03-31T11:59:59+00:00:00", "Published.Existing.Between_Beginning_And_End_Of_A_Month", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events betweem: 2000_01_01_Midnight__2000_01_01_Midnight_EST")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Read events betweem: Beginning_And_End_Of_A_Day")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Read events from a stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("read_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("events_between_dates")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2000_01_01_Midnight__2000_01_01_Midnight_EST")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "2000_01_01_Midnight__2000_01_01_Midnight_EST")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:start", "2000-01-01T00:00:00-04:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:end", "2000-01-01T00:00:00+00:00:00")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Before_Midnight_EST")]
-        public virtual void ReadEventsBetweem_2000_01_01_Midnight__2000_01_01_Midnight_EST()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Beginning_And_End_Of_A_Day")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "Beginning_And_End_Of_A_Day")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "Aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:start", "2000-01-01T00:00:00+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:end", "2000-01-01T11:59:59+00:00:00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "Published.Existing.Between_Beginning_And_End_Of_A_Day")]
+        public virtual void ReadEventsBetweem_Beginning_And_End_Of_A_Day()
         {
-#line 44
-this.ReadEventsBetweem("2000_01_01_Midnight__2000_01_01_Midnight_EST", "aggregate-1", "2000-01-01T00:00:00-04:00:00", "2000-01-01T00:00:00+00:00:00", "Published.Existing.Before_Midnight_EST", ((string[])(null)));
+#line 46
+this.ReadEventsBetweem("Beginning_And_End_Of_A_Day", "Aggregate-1", "2000-01-01T00:00:00+00:00:00", "2000-01-01T11:59:59+00:00:00", "Published.Existing.Between_Beginning_And_End_Of_A_Day", ((string[])(null)));
 #line hidden
         }
     }

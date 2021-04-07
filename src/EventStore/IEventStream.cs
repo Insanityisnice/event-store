@@ -9,6 +9,7 @@ namespace EventStore
     {
         string StreamName { get; }
         string Category { get; }
+        int Revision { get; }
 
         Task Publish(params Event[] events);
     }

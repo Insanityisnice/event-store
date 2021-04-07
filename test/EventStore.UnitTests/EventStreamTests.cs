@@ -120,7 +120,7 @@ namespace EventStore.UnitTests
             int numOfEvents = 0;
             var target = new EventStream(streamName, streamStore, logger);
 
-            streamStore.ReadStream(streamName).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
+            streamStore.ReadEvents(streamName).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
             var result = await target.ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
 
             result.ReceivedCalls().Count().Should().Be(numOfEvents);
@@ -133,7 +133,7 @@ namespace EventStore.UnitTests
             int numOfEvents = 1;
             var target = new EventStream(streamName, streamStore, logger);
 
-            streamStore.ReadStream(streamName).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
+            streamStore.ReadEvents(streamName).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
             var result = await target.ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
 
             result.ReceivedCalls().Count().Should().Be(numOfEvents);
@@ -148,7 +148,7 @@ namespace EventStore.UnitTests
             int numOfEvents = 4;
             var target = new EventStream(streamName, streamStore, logger);
 
-            streamStore.ReadStream(streamName).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
+            streamStore.ReadEvents(streamName).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
             var result = await target.ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
 
             result.ReceivedCalls().Count().Should().Be(numOfEvents);
@@ -165,7 +165,7 @@ namespace EventStore.UnitTests
             DateTimeOffset to = new DateTimeOffset(new DateTime(2021, 1, 2, 23, 59, 59, DateTimeKind.Utc));
             var target = new EventStream(streamName, streamStore, logger);
 
-            streamStore.ReadStream(streamName, from, to).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
+            streamStore.ReadEvents(streamName, from, to).Returns(Streams.Aggregate_1.Take(numOfEvents).ToAsyncEnumerable());
             var result = await target.Before(to).ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
 
             result.ReceivedCalls().Count().Should().Be(numOfEvents);
@@ -182,7 +182,7 @@ namespace EventStore.UnitTests
             DateTimeOffset to = default(DateTimeOffset);
             var target = new EventStream(streamName, streamStore, logger);
 
-            streamStore.ReadStream(streamName, from, to).Returns(Streams.Aggregate_1.Skip(2).Take(numOfEvents).ToAsyncEnumerable());
+            streamStore.ReadEvents(streamName, from, to).Returns(Streams.Aggregate_1.Skip(2).Take(numOfEvents).ToAsyncEnumerable());
             var result = await target.After(from).ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
 
             result.ReceivedCalls().Count().Should().Be(numOfEvents);
@@ -199,7 +199,7 @@ namespace EventStore.UnitTests
             DateTimeOffset to = new DateTimeOffset(new DateTime(2021, 1, 3, 0, 0, 0, DateTimeKind.Utc));
             var target = new EventStream(streamName, streamStore, logger);
 
-            streamStore.ReadStream(streamName, from, to).Returns(Streams.Aggregate_1.Skip(1).Take(numOfEvents).ToAsyncEnumerable());
+            streamStore.ReadEvents(streamName, from, to).Returns(Streams.Aggregate_1.Skip(1).Take(numOfEvents).ToAsyncEnumerable());
             var result = await target.Between(from, to).ToObject<Aggregate>(Substitute.ForPartsOf<Aggregate>(), (@event, aggregate) => aggregate.Apply(@event));
 
             result.ReceivedCalls().Count().Should().Be(numOfEvents);

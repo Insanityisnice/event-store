@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using EventStore.AcceptanceTests.Drivers;
+using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace EventStore.AcceptanceTests.StepDefinitions
@@ -7,22 +9,23 @@ namespace EventStore.AcceptanceTests.StepDefinitions
     [Binding, Scope(Tag = "streams")]
     public class CommonStepDefinitions
     {
-        public CommonStepDefinitions(FeatureContext featureContext)
+        private readonly StreamStoreDriver storeDriver;
+
+        public CommonStepDefinitions(StreamStoreDriver storeDriver)
         {
+            this.storeDriver = storeDriver ?? throw new ArgumentNullException(nameof(storeDriver));
         }
 
         [Given(@"(.*) does not exist")]
         public async Task stream_does_not_exist(string stream)
         {
-            await Task.CompletedTask;
-            ScenarioContext.StepIsPending();
+            (await storeDriver.Exists(stream)).Should().BeFalse();
         }
 
         [Given(@"(.*) does exist")]
         public async Task stream_does_exist(string stream)
         {
-            await Task.CompletedTask;
-            ScenarioContext.StepIsPending();
+            (await storeDriver.Exists(stream)).Should().BeTrue();
         }
 
         [Then(@"(.*) contains no events")]

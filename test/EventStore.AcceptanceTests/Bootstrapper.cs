@@ -4,6 +4,8 @@ namespace EventStore.AcceptanceTests
     {
         public static IEventStore EventStore { get; private set; }
 
-        public static void Initialize() {}
+        public static void Initialize() {
+            
+        }
     }
 }

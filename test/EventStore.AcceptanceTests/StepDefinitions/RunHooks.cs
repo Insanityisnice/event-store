@@ -1,4 +1,8 @@
-using EventStore.AcceptanceTests;
+using EventStore.Persistence;
+using EventStore.Persistence.InMemory;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using SolidToken.SpecFlow.DependencyInjection;
 using TechTalk.SpecFlow;
 
 namespace PwC.GTT.Platform.EventStore.Web.IntegrationTests.Support
@@ -6,16 +10,16 @@ namespace PwC.GTT.Platform.EventStore.Web.IntegrationTests.Support
     [Binding]
     public class RunHooks
     {
-        [BeforeTestRun]
-        public static void BeforeTestRun()
+        [ScenarioDependencies]
+        public static IServiceCollection CreateServices()
         {
-            Bootstrapper.Initialize();
-        }
+            var services = new ServiceCollection();
 
-        [BeforeFeature]
-        public static void BeforeFeature(FeatureContext featureContext)
-        {
-            //featureContext.Add("streams", Bootstrapper.EventStore.Streams);
+            services.AddLogging()
+                .AddSingleton<IStreamStore>(new InMemoryStreamStore()) //TODO: Figure out a way to swap this out or share the tests for testing different persistence technologies. 
+                .ConfigureEventStore();
+            
+            return services;
         }
     }
 }

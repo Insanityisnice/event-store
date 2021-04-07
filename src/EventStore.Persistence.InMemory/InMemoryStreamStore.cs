@@ -10,25 +10,32 @@ namespace EventStore.Persistence.InMemory
 {
     public class InMemoryStreamStore : IStreamStore
     {
-        private ConcurrentDictionary<string, List<Event>> streams = new ConcurrentDictionary<string, List<Event>>();
+        private ConcurrentDictionary<string, List<Event>> commits = new ConcurrentDictionary<string, List<Event>>();
+        private ConcurrentDictionary<string, Stream> streams = new ConcurrentDictionary<string, Stream>();
         
         public Task AddEventsToStream(string streamName, IEnumerable<Event> events)
         {
-            var storedEvents = streams.GetOrAdd(streamName, _ => new List<Event>());
+            var storedEvents = commits.GetOrAdd(streamName, _ => new List<Event>());
             storedEvents.AddRange(events);
 
             return Task.FromResult<bool>(true);
         }
 
-        public IAsyncEnumerable<Event> ReadStream(string streamName, int firstEvent, int lastEvent)
+        public Task<Stream> ReadStream(string streamName)
         {
-            var storedEvents = streams[streamName];
-            return new AsyncEnumerator(storedEvents.Skip(firstEvent).Take(lastEvent - firstEvent));
+            if (string.IsNullOrWhiteSpace(streamName)) throw new ArgumentException($"'{nameof(streamName)}' cannot be null or whitespace.", nameof(streamName));
+
+            if (streams.ContainsKey(streamName)) 
+            {
+                return Task.FromResult(streams[streamName]);
+            }
+
+            return Task.FromResult<Stream>(null);
         }
 
-        public IAsyncEnumerable<Event> ReadStream(string streamName, DateTimeOffset from = default, DateTimeOffset to = default)
+        public IAsyncEnumerable<Event> ReadEvents(string streamName, DateTimeOffset from = default, DateTimeOffset to = default)
         {
-            var storedEvents = streams[streamName];
+            var storedEvents = commits[streamName];
             return new AsyncEnumerator(storedEvents.Where(e => e.Timestamp >= from && e.Timestamp <= to));
         }
 

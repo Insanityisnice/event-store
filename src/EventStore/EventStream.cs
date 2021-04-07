@@ -14,9 +14,11 @@ namespace EventStore
     {
         private readonly ILogger<EventStream> logger;
         private readonly IStreamStore store;
+        private Stream stream;
 
         public string StreamName { get; private set; }
         public string Category { get; private set; }
+        public int Revision { get { return stream.Revision; } }
 
         public EventStream(string streamName, IStreamStore store, ILogger<EventStream> logger)
         {
@@ -27,11 +29,14 @@ namespace EventStore
 
             this.store = store ?? throw new ArgumentNullException(nameof(store));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
+            var storedStream = store.ReadStream(streamName).Result;
+            this.stream = storedStream ?? new Stream(streamName, 0);
         }
 
         override public IAsyncEnumerator<Event> GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
-            return store.ReadStream(StreamName, after, before).GetAsyncEnumerator(cancellationToken);
+            return store.ReadEvents(StreamName, after, before).GetAsyncEnumerator(cancellationToken);
         }
 
         public async Task Publish(params Event[] events)
