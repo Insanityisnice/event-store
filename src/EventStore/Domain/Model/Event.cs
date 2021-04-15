@@ -23,13 +23,13 @@ namespace EventStore.Domain.Model
         }
 
         public Event(Guid id, string type, string user, DateTimeOffset timestamp, JObject data)
+            : this(id, type, user, -1, timestamp, data)
         {
-            Id = id;
-            Type = type;
-            User = user;
-            SequenceNumber = -1;
-            Timestamp = timestamp;
-            Data = data;
+        }
+
+        public Event(Guid id, string type, string user, JObject data)
+            : this(id, type, user, DateTimeOffset.UtcNow, data)
+        {
         }
     }
 }

@@ -20,7 +20,7 @@ namespace EventStore.AcceptanceTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class CreateANewStreamFromASingleEvent_Feature
+    public partial class CreateANewStreamFromOneOrMoreEventsFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -50,8 +50,8 @@ namespace EventStore.AcceptanceTests.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Create a new stream from a single event.", "    Creating a new stream when a single event is published with required and opti" +
-                    "onal values.", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Create a new stream from one or more events", "    Creating a new stream when one or more events are published with required and" +
+                    " optional values.", ProgrammingLanguage.CSharp, new string[] {
                         "streams",
                         "create_stream"});
             testRunner.OnFeatureStart(featureInfo);
@@ -68,9 +68,9 @@ namespace EventStore.AcceptanceTests.Features
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "Create a new stream from a single event.")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "Create a new stream from one or more events")))
             {
-                global::EventStore.AcceptanceTests.Features.CreateANewStreamFromASingleEvent_Feature.FeatureSetup(null);
+                global::EventStore.AcceptanceTests.Features.CreateANewStreamFromOneOrMoreEventsFeature.FeatureSetup(null);
             }
         }
         
@@ -96,7 +96,7 @@ namespace EventStore.AcceptanceTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void PublishASingleEvent(string scenario_Name, string stream, string @event, string published_Events, string[] exampleTags)
+        public virtual void PublishEvents(string scenario_Name, string stream, string events, string published_Events, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "single_event"};
@@ -108,9 +108,9 @@ namespace EventStore.AcceptanceTests.Features
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("scenario_name", scenario_Name);
             argumentsOfScenario.Add("stream", stream);
-            argumentsOfScenario.Add("event", @event);
+            argumentsOfScenario.Add("events", events);
             argumentsOfScenario.Add("published_events", published_Events);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish a single event", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish events", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -135,7 +135,7 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.Given(string.Format("{0} does not exist", stream), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
-    testRunner.When(string.Format("{0} is published", @event), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When(string.Format("{0} are published", events), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
     testRunner.Then(string.Format("{0} contains {1}", stream, published_Events), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -145,38 +145,74 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Publish a single event: OnlyRequiredProperties")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Create a new stream from a single event.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Publish events: Variant 0")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Create a new stream from one or more events")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("create_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("single_event")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "OnlyRequiredProperties")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "OnlyRequiredProperties")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:event", "ToPublish.Single.OnlyRequiredProperties")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "ToPublish.Single.OnlyRequiredProperties")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:published_events", "Published.Single.OnlyRequiredProperties")]
-        public virtual void PublishASingleEvent_OnlyRequiredProperties()
+        public virtual void PublishEvents_Variant0()
         {
 #line 6
-this.PublishASingleEvent("OnlyRequiredProperties", "aggregate-1", "ToPublish.Single.OnlyRequiredProperties", "Published.Single.OnlyRequiredProperties", ((string[])(null)));
+this.PublishEvents("OnlyRequiredProperties", "aggregate-1", "ToPublish.Single.OnlyRequiredProperties", "Published.Single.OnlyRequiredProperties", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Publish a single event: AllProperties")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Create a new stream from a single event.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Publish events: Variant 1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Create a new stream from one or more events")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("create_stream")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("single_event")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "AllProperties")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 1")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "AllProperties")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:event", "ToPublish.Single.AllProperties")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "ToPublish.Single.AllProperties")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:published_events", "Published.Single.AllProperties")]
-        public virtual void PublishASingleEvent_AllProperties()
+        public virtual void PublishEvents_Variant1()
         {
 #line 6
-this.PublishASingleEvent("AllProperties", "aggregate-1", "ToPublish.Single.AllProperties", "Published.Single.AllProperties", ((string[])(null)));
+this.PublishEvents("AllProperties", "aggregate-1", "ToPublish.Single.AllProperties", "Published.Single.AllProperties", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Publish events: Variant 2")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Create a new stream from one or more events")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("create_stream")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("single_event")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 2")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "OnlyRequiredProperties")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "ToPublish.Multiple.OnlyRequiredProperties")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:published_events", "Published.Multiple.OnlyRequiredProperties")]
+        public virtual void PublishEvents_Variant2()
+        {
+#line 6
+this.PublishEvents("OnlyRequiredProperties", "aggregate-1", "ToPublish.Multiple.OnlyRequiredProperties", "Published.Multiple.OnlyRequiredProperties", ((string[])(null)));
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Publish events: Variant 3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Create a new stream from one or more events")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("streams")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("create_stream")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("single_event")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:scenario_name", "AllProperties")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:stream", "aggregate-1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:events", "ToPublish.Multiple.AllProperties")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:published_events", "Published.Multiple.AllProperties")]
+        public virtual void PublishEvents_Variant3()
+        {
+#line 6
+this.PublishEvents("AllProperties", "aggregate-1", "ToPublish.Multiple.AllProperties", "Published.Multiple.AllProperties", ((string[])(null)));
 #line hidden
         }
     }

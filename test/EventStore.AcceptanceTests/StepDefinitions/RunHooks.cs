@@ -1,11 +1,11 @@
+using EventStore.AcceptanceTests.Drivers;
 using EventStore.Persistence;
 using EventStore.Persistence.InMemory;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using SolidToken.SpecFlow.DependencyInjection;
 using TechTalk.SpecFlow;
 
-namespace PwC.GTT.Platform.EventStore.Web.IntegrationTests.Support
+namespace EventStore.AcceptanceTests.StepDefinitions
 {
     [Binding]
     public class RunHooks
@@ -17,6 +17,9 @@ namespace PwC.GTT.Platform.EventStore.Web.IntegrationTests.Support
 
             services.AddLogging()
                 .AddSingleton<IStreamStore>(new InMemoryStreamStore()) //TODO: Figure out a way to swap this out or share the tests for testing different persistence technologies. 
+                .AddScoped<StreamStoreDriver>()
+                .AddScoped<StreamsDriver>()
+                .AddScoped<StreamTestContext>()
                 .ConfigureEventStore();
             
             return services;

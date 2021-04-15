@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using EventStore.AcceptanceTests.Data;
 using EventStore.AcceptanceTests.Drivers;
 using FluentAssertions;
 using TechTalk.SpecFlow;
@@ -10,37 +11,50 @@ namespace EventStore.AcceptanceTests.StepDefinitions
     public class CommonStepDefinitions
     {
         private readonly StreamStoreDriver storeDriver;
+        private readonly StreamsDriver streamsDriver;
+        private readonly StreamTestContext context;
 
-        public CommonStepDefinitions(StreamStoreDriver storeDriver)
+        public CommonStepDefinitions(StreamStoreDriver storeDriver, StreamsDriver streamsDriver, StreamTestContext context)
         {
             this.storeDriver = storeDriver ?? throw new ArgumentNullException(nameof(storeDriver));
+            this.streamsDriver = streamsDriver ?? throw new ArgumentNullException(nameof(streamsDriver));
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         [Given(@"(.*) does not exist")]
-        public async Task stream_does_not_exist(string stream)
+        public async Task stream_does_not_exist(string streamName)
         {
-            (await storeDriver.Exists(stream)).Should().BeFalse();
+            if (String.IsNullOrWhiteSpace(context.StreamName)) context.StreamName = streamName;
+            streamName.Should().Be(context.StreamName);
+
+            var exists = await storeDriver.Exists(context.StreamName);
+            exists.Should().BeFalse();
+            
+            if (context.Stream == null) context.Stream = streamsDriver.GetStream(context.StreamName);
         }
 
         [Given(@"(.*) does exist")]
-        public async Task stream_does_exist(string stream)
+        public async Task stream_does_exist(string streamName)
         {
-            (await storeDriver.Exists(stream)).Should().BeTrue();
+            if (String.IsNullOrWhiteSpace(context.StreamName)) context.StreamName = streamName;
+            streamName.Should().Be(context.StreamName);
+
+            var exists = await storeDriver.Exists(context.StreamName);
+            exists.Should().BeTrue();
+
+            if (context.Stream == null) context.Stream = streamsDriver.GetStream(context.StreamName);
         }
 
         [Then(@"(.*) contains no events")]
-        public async Task contains_no_events()
+        public async Task contains_no_events(string streamName)
         {
-            await Task.CompletedTask;
-            ScenarioContext.StepIsPending();
-
+            await storeDriver.StreamHasNoEvents(streamName);
         }
 
         [Then(@"(.*) contains (.*)")]
-        public async Task contains_published_events(string stream, string eventsLookup)
+        public async Task contains_published_events(string streamName, string eventsLookup)
         {
-            await Task.CompletedTask;
-            ScenarioContext.StepIsPending();
+            await storeDriver.StreamHasExpectedEvents(streamName, EventData.Events(eventsLookup));
         }
     }
 }
