@@ -1,11 +1,11 @@
 namespace EventStore.Domain.Model
 {
-    public class Stream
+    public abstract class Stream
     {
         public string StreamName { get; private set; }
-        public int Revision { get; private set; }
+        public int Revision { get; protected set; }
 
-        internal Stream(string streamName, int revision)
+        protected Stream(string streamName, int revision)
         {
             if (string.IsNullOrWhiteSpace(streamName)) throw new System.ArgumentException($"'{nameof(streamName)}' cannot be null or whitespace.", nameof(streamName));
 

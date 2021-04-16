@@ -16,7 +16,7 @@ namespace EventStore.AcceptanceTests.StepDefinitions
             var services = new ServiceCollection();
 
             services.AddLogging()
-                .AddSingleton<IStreamStore>(new InMemoryStreamStore()) //TODO: Figure out a way to swap this out or share the tests for testing different persistence technologies. 
+                .AddScoped<IStreamStore, InMemoryStreamStore>() //TODO: Figure out a way to swap this out or share the tests for testing different persistence technologies. 
                 .AddScoped<StreamStoreDriver>()
                 .AddScoped<StreamsDriver>()
                 .AddScoped<StreamTestContext>()

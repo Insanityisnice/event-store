@@ -100,7 +100,7 @@ namespace EventStore.AcceptanceTests.Features
 #line 5
 #line hidden
 #line 6
-    testRunner.Given("Aggregate-1 contains Published.Existing.Aggregate-1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("Aggregate-1 starts with Published.Existing.Aggregate-1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
         
@@ -143,7 +143,7 @@ this.FeatureBackground();
     testRunner.Given("Aggregate-99 does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 11
-    testRunner.Then("Aggregate-99 contains no events", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("Aggregate-99 has no events", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -43,7 +43,12 @@ namespace EventStore.AcceptanceTests.Drivers
             var readEvents = store.ReadEvents(streamName);
             var events = await readEvents.ToListAsync();
 
-            events.Should().BeEquivalentTo(expectedEvents, options => options.Excluding(x => x.Timestamp).Excluding(x => x.SequenceNumber));
+            events.Should().BeEquivalentTo(expectedEvents, options => options.Excluding(x => x.Timestamp));
+        }
+
+        public async Task AddEvents(string streamName, IEnumerable<Event> events)
+        {
+            await store.AddEventsToStream(streamName, events);
         }
     }
 }

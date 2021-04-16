@@ -3,12 +3,12 @@ Feature: Read events from a stream
     Read the events from a stream
 
 Background: Aggregate-1 is populated
-    Given Aggregate-1 contains Published.Existing.Aggregate-1
+    Given Aggregate-1 starts with Published.Existing.Aggregate-1
 
 @missing_stream
 Scenario: Read events when stream does not exist
     Given Aggregate-99 does not exist
-    Then Aggregate-99 contains no events
+    Then Aggregate-99 has no events
 
 @all_events
 Scenario Outline: Read all events

@@ -25,9 +25,9 @@ namespace EventStore
                 EventIds.Warning.EventStream_AttemptToAddEmptyEvents, "An empty events array was supplied for stream '{streamName}'.");
         public static void AttemptToAddEmptyEvents(this ILogger logger, string streamName) => attemptToAddEmptyEvents(logger, streamName, null);
         
-        private static readonly Action<ILogger, int, string, Exception> addEvents = LoggerMessage.Define<int, string>(LogLevel.Information, 
+        private static readonly Action<ILogger, int, string, Exception> eventsAdded = LoggerMessage.Define<int, string>(LogLevel.Information, 
                 EventIds.Information.EventStream_EventsAdded, "Added {count} events to the '{streamName}' stream.");
-        public static void AddedEvents(this ILogger logger, string streamName, int count) => addEvents(logger, count, streamName, null);
+        public static void EventsAdded(this ILogger logger, string streamName, int count) => eventsAdded(logger, count, streamName, null);
         #endregion EventStream Messages
     }
 }

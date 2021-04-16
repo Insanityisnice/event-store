@@ -18,7 +18,16 @@ namespace EventStore
 
         public string StreamName { get; private set; }
         public string Category { get; private set; }
-        public int Revision { get { return stream.Revision; } }
+        public int Revision { 
+            get 
+            {
+                if (stream != null)
+                {
+                    return stream.Revision;
+                }
+                return -1;
+            }
+        }
 
         public EventStream(string streamName, IStreamStore store, ILogger<EventStream> logger)
         {
@@ -31,7 +40,7 @@ namespace EventStore
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             var storedStream = store.ReadStream(streamName).Result;
-            this.stream = storedStream ?? new Stream(streamName, 0);
+            this.stream = storedStream;
         }
 
         override public IAsyncEnumerator<Event> GetAsyncEnumerator(CancellationToken cancellationToken = default)
@@ -47,7 +56,9 @@ namespace EventStore
             if (events.Length == 0) { logger.AttemptToAddEmptyEvents(StreamName); throw new ArgumentException("There must be at least one event to add to the stream.", nameof(events)); }
 
             await store.AddEventsToStream(StreamName, events);
-            logger.AddedEvents(StreamName, events.Length);
+            this.stream = await store.ReadStream(StreamName);
+            
+            logger.EventsAdded(StreamName, events.Length);
         }
 
         override public async Task<T> ToObject<T>(T seed, Func<Event, T, T> merge)

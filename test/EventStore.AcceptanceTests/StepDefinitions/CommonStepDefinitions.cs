@@ -45,7 +45,7 @@ namespace EventStore.AcceptanceTests.StepDefinitions
             if (context.Stream == null) context.Stream = streamsDriver.GetStream(context.StreamName);
         }
 
-        [Then(@"(.*) contains no events")]
+        [Then(@"(.*) has no events")]
         public async Task contains_no_events(string streamName)
         {
             await storeDriver.StreamHasNoEvents(streamName);
@@ -55,6 +55,12 @@ namespace EventStore.AcceptanceTests.StepDefinitions
         public async Task contains_published_events(string streamName, string eventsLookup)
         {
             await storeDriver.StreamHasExpectedEvents(streamName, EventData.Events(eventsLookup));
+        }
+
+        [Then(@"(.*) starts with (.*)")]
+        public async Task starts_with_events(string streamName, string eventsLookup)
+        {
+            await storeDriver.AddEvents(streamName, EventData.Events(eventsLookup));
         }
     }
 }

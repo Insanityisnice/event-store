@@ -22,6 +22,11 @@ namespace EventStore.Domain.Model
             Data = data;
         }
 
+        protected Event(Event @event, long sequenceNumber)
+            : this(@event.Id, @event.Type, @event.User, sequenceNumber, @event.Timestamp, @event.Data)
+        {
+        }
+
         public Event(Guid id, string type, string user, DateTimeOffset timestamp, JObject data)
             : this(id, type, user, -1, timestamp, data)
         {
