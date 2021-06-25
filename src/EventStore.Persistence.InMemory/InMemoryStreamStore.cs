@@ -15,10 +15,10 @@ namespace EventStore.Persistence.InMemory
         
         public Task AddEventsToStream(string streamName, IEnumerable<Event> events)
         {
-            var stream = streams.GetOrAdd(streamName, sn => new StoredStream(sn, -1));
+            var stream = streams.GetOrAdd(streamName, sn => new StoredStream(sn, 0));
             
             var storedEvents = commits.GetOrAdd(streamName, _ => new List<Event>());
-            storedEvents.AddRange(events);
+            storedEvents.AddRange(events.Select((e, index) => new Event(e, index + stream.Revision)));
 
             stream.IncrementRevision(events.Count());
 

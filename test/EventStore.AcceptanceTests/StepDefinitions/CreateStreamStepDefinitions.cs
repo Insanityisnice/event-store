@@ -16,7 +16,7 @@ namespace EventStore.AcceptanceTests.StepDefinitions
             this.context = context;
         }
 
-        [When(@"(.*) are published")]
+        [When(@"'(.*)' are published")]
         public async Task the_events_are_published(string eventLookup)
         {
             context.Stream.Should().NotBeNull("the stream should already be setup.");

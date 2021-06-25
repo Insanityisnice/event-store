@@ -4,9 +4,9 @@ Feature: Create a new stream from one or more events
 
  @single_event
 Scenario Outline: Publish events
-    Given <stream> does not exist
-    When <events> are published
-    Then <stream> contains <published_events>
+    Given '<stream>' does not exist
+    When '<events>' are published
+    Then '<stream>' contains '<published_events>'
 
     Scenarios:
         | scenario_name          | stream       | events                                    | published_events                          |

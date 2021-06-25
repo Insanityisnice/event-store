@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,6 +42,14 @@ namespace EventStore.AcceptanceTests.Drivers
         public async Task StreamHasExpectedEvents(string streamName, IEnumerable<Event> expectedEvents)
         {
             var readEvents = store.ReadEvents(streamName);
+            var events = await readEvents.ToListAsync();
+
+            events.Should().BeEquivalentTo(expectedEvents, options => options.Excluding(x => x.Timestamp));
+        }
+
+        public async Task StreamHasExpectedEventsAfter(string streamName, DateTimeOffset after, IEnumerable<Event> expectedEvents)
+        {
+            var readEvents = store.ReadEvents(streamName, after);
             var events = await readEvents.ToListAsync();
 
             events.Should().BeEquivalentTo(expectedEvents, options => options.Excluding(x => x.Timestamp));
