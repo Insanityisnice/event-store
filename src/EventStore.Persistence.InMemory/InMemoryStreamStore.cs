@@ -45,7 +45,7 @@ namespace EventStore.Persistence.InMemory
             if (streams.ContainsKey(streamName))
             {
                 var storedEvents = commits[streamName];
-                var requestedEvents = storedEvents.Where(e => e.Timestamp >= from && e.Timestamp <= to).Select((e, index) => new HydratedEvent(e, index));
+                var requestedEvents = storedEvents.Where(e => e.Timestamp >= from && e.Timestamp <= to).Select(e => new HydratedEvent(e));
                 return new AsyncEnumerator(requestedEvents);
             }
 
@@ -67,8 +67,8 @@ namespace EventStore.Persistence.InMemory
 
         private class HydratedEvent : Event
         {
-            public HydratedEvent(Event @event, long sequenceNumber)
-                : base(@event, sequenceNumber)
+            public HydratedEvent(Event @event)
+                : base(@event, @event.SequenceNumber)
             {
             }
         }
